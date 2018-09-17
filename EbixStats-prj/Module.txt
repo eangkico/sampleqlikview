@@ -1,0 +1,3 @@
+﻿Sub Lock
+ActiveDocument.Fields("SERVICER").Lock
+End Sub

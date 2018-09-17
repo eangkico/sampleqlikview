@@ -1,0 +1,40 @@
+﻿///$tab Main
+SET ThousandSep=',';
+SET DecimalSep='.';
+SET MoneyThousandSep=',';
+SET MoneyDecimalSep='.';
+SET MoneyFormat='$#,##0.00;-$#,##0.00';
+SET TimeFormat='h:mm:ss TT';
+SET DateFormat='D/MM/YYYY';
+SET TimestampFormat='D/MM/YYYY h:mm:ss[.fff] TT';
+SET MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
+SET DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun';
+
+///$tab Variables
+set vDataPath = 'D:\EbixQlikView\QVData\';
+///$tab Placements
+Placements:
+Load
+	*,
+     if(negotiationid=Previous(negotiationid),if(Premium<>Previous(Premium) and Premium<>0,1,0),0) as IsLastOccurance;
+LOAD conservationid, 
+     negotiationid,
+     inscompany as Insurer, 
+     brkcompany as Broker, 
+     prdcode, 
+     conver_state, 
+     negot_state, 
+     insuredname, 
+     messagetype, 
+     date(messagesenton, 'DD-MM-YYYY') as messgesenton,
+     year(messagesenton) as Year,
+     month(messagesenton) as Month,
+     Year(AddMonths(messagesenton,6)) as FiscalYear,
+     policyreference,
+     if(messagetype='Lost' or messagetype='Terminated',if(trim(Previous(totaltermspremium))='NULL', '0.00', Num#(trim(Previous(totaltermspremium)),'0.00')),if(trim(totaltermspremium)='NULL', '0.00', Num#(trim(totaltermspremium),'0.00'))) as Premium,
+     if(trim(totaltermspremium)='NULL', '0.00', Num#(trim(totaltermspremium),'0.00')) as Prem
+FROM
+$(vDataPath)Placements.qvd
+(qvd);
+
+
