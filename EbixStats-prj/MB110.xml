@@ -173,7 +173,7 @@
       <DropShadow>false</DropShadow>
     </Header_Right_Font>
     <Footer_Left_Font>
-      <FontName>Tahoma</FontName>
+      <FontName>Arial</FontName>
       <PointSize1000>8000</PointSize1000>
       <Underline>false</Underline>
       <Bold>false</Bold>
@@ -230,7 +230,7 @@
         <v>Broker</v>
       </Label>
       <FieldDef>
-        <Name>Broker</Name>
+        <Name>Broken</Name>
         <Type>PRESENT</Type>
       </FieldDef>
       <SortCriteria>
